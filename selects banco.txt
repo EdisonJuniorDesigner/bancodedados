@@ -1,0 +1,8 @@
+select count(*)from cidade;
+select sum(saldo) from conta;
+select sum(saldo) from conta where codagencia='6849';
+select avg(saldo) from conta;
+select max(saldo) from conta;
+select min(saldo) from conta;
+select codagencia,max(saldo) from conta group by codagencia;
+select codagencia,max(saldo) from conta group by codagencia having max(saldo)>1800;

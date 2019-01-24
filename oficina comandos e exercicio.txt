@@ -1,0 +1,48 @@
+create table cep(
+	cep varchar(60) not null primary key,
+	rua varchar(60) not null,
+	bairro varchar(60) not null,
+	cidade varchar(60) not null,
+	uf varchar(60) not null);
+
+insert into cep values ('26262-131','Rua A','Valverde','Nova Iguaçu','RJ'),('26262-132','Rua B','Gávea','Rio de Janeiro','RJ');
+
+alter table cliente rename column cep to endereco;
+
+alter table cliente drop column endereco;
+
+select*from cliente;
+select*from veiculo;
+select*from cep;
+
+alter table cliente add cep varchar(9);
+alter table cliente add numero varchar(10);
+alter table cliente add complemento varchar(60);
+
+
+update cliente set numero='36' where codcliente='4441';
+update cliente set complemento='AP 306' where codcliente='4441';
+update cliente set cep='26262-131' where codcliente='4441';
+update cliente set cep='26262-132' where codcliente='4442';
+update cliente set numero='45' where codcliente='4442';
+update cliente set complemento='AP 435' where codcliente='4442';
+
+alter table cliente add constraint fk_cep foreign key(cep) references cep(cep);
+
+select cliente.nome,cliente.telefone,cep.cep, cep.rua, cliente.numero, cliente.complemento, cep.bairro, cep.cidade, cep.uf
+from cliente,cep
+where cliente.cep=cep.cep;
+
+select cliente.nome,cliente.telefone,cep.cep, cep.rua, cliente.numero, cliente.complemento, cep.bairro, cep.cidade, cep.uf
+from cliente,cep
+where cliente.cep=cep.cep
+and cep.bairro='Gávea';
+
+select cliente.nome,cliente.telefone,veiculo.placa, veiculo.modelo, veiculo.marca
+from cliente,veiculo
+where cliente.codcliente=veiculo.codcliente;
+
+select cliente.nome,cliente.telefone,veiculo.placa
+from cliente,veiculo
+where cliente.codcliente=veiculo.codcliente
+and cliente.codcliente='4441';
