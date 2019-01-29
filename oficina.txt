@@ -60,3 +60,16 @@ insert into pecasXservicos values (3, 3, 3);
 insert into servicosXmao_de_obra values (1, 1, 1);
 insert into servicosXmao_de_obra values (2, 2, 2);
 insert into servicosXmao_de_obra values (3, 3, 3);
+
+
+-- 7) Mostrar a soma atualizada das peças do estoque.
+
+select sum(preco_unitario) as total from pecas;
+
+-- 8) Mostrar a média de preço das peças do estoque
+
+select avg(preco_unitario) as media from pecas;
+
+-- 9)Mostrar o maior valor de mão de obra da oficina por especialidade.
+
+select * from mao_de_obra where valor = (select max(valor) from mao_de_obra);
