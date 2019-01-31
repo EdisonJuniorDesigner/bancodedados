@@ -1,0 +1,67 @@
+-- 1) consultar nome e endereço de todos os clientes
+
+select cliente.nome,cliente.cep
+from cliente,cep;
+
+-- 2) consultar nome e endereço de todos os clientes que moram em jacarepagua
+
+select cliente.nome,cliente.cep,cep.cep
+from cliente,cep
+where bairro='Gávea';
+
+-- 3)consultar nome dos clientes,telefone,placa do veiculo, modelo e marca.
+
+select cliente.nome,cliente.telefone,veiculo.placa,veiculo.ano,veiculo.modelo, veiculo.marca
+from cliente,veiculo;
+
+select c.nome, c.telefone, v.placa,v.modelo,v.marca 
+from cliente c inner join veiculo v
+on c.codcliente = v.codcliente;
+
+-- 4) consultar nome,telefone e placa do veiculo do cliente do serviço código 100.
+
+select cliente.nome,cliente.telefone,servicos.placa,servicos.codservico
+from cliente,servicos
+where servicos.codservico=1;
+
+select c.nome, c.telefone, v.placa
+from veiculo v inner join servicos s
+on v.placa = s.placa
+inner join cliente c
+on c.codcliente = v.codcliente
+and s.codservico = 1;
+
+--5)Nome de todas as peças usadas na ordem de serviço número 1001
+
+select pecas,servicos.codservico
+from pecas,servicos,pecasxservicos
+where servicos.codservico=1
+and pecas.codpeca = pecasxservicos.codpeca
+and servicos.codservico = pecasxservicos.codservico;
+
+select nome
+from pecas p inner join
+
+-- 6)consultar quais foram os serviços executados(mão obra) e as peças utilizadas no veículo placa luw5567 no dia 10/05/2018.
+select pecas.nome,servicos.codservico,mao_de_obra.especialidade,servicos.placa,servicos.dataentrada
+from pecas,servicos,pecasxservicos,servicosxmao_de_obra,mao_de_obra
+where servicos.placa='HGK-1777'
+and servicos.dataentrada='20-01-2019'
+and pecas.codpeca = pecasxservicos.codpeca
+and servicos.codservico = pecasxservicos.codservico
+and servicos.codservico = servicosxmao_de_obra.codservico
+and mao_de_obra.codmao_de_obra = servicosxmao_de_obra.codmao_de_obra;
+
+-- 7) Mostrar a soma atualizada das peças do estoque.
+
+select sum(preco_unitario) as total from pecas;
+
+-- 8) Mostrar a média de preço das peças do estoque
+
+select avg(preco_unitario) as media from pecas;
+
+-- 9)Mostrar o maior valor de mão de obra da oficina por especialidade.
+
+select * from mao_de_obra where valor = (select max(valor) from mao_de_obra);
+
+select*from servicos
