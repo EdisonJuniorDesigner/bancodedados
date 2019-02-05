@@ -1,0 +1,45 @@
+select * from pecas
+Select * from pecas where nome like 'M%';
+Select * from pecas where nome like '%l';
+Select * from pecas where nome like '%de%';
+select * from pecas where codpeca in (1, 3);
+select * from pecas where codpeca between 1 and 3;
+
+select * from servicos
+
+insert into cliente (codcliente,nome,telefone,cep,numero,complemento) values ('4443','Miles','(21)3258-8456','26262-131','57','Fundos')
+--1) Buscar o nome de todos os clientes que o nome comece  com a letra M.
+Select * from cliente where nome like 'M%';
+
+
+alter table servicos
+add data date;
+
+update servicos set data='2019-01-10' where codservico=2;
+
+--2)Buscar o nome de todos os serviços executados entre os dias 01 e 10 de janeiro.
+select * from servicos where data between '2019-01-01' and '2019-01-10';
+
+select * from servicos
+--3) Buscar os serviços 100 e 105.
+insert into veiculo (placa,marca,modelo,ano,cor,codcliente) values ('RYU-7777','Jeep','Renegade','2018','Prata','4443')
+insert into servicos (codservico,defeito,dataentrada,datasaida,placa,preco,data) values (100,'Motor danificado','08-01-2019','10-01-2019','RYU-7777','5000','2019-01-08')
+insert into servicos (codservico,defeito,dataentrada,datasaida,placa,preco,data) values (103,'Lanternas Quebradas','08-01-2019','10-01-2019','RYU-7777','1500','2019-01-08')
+insert into servicos (codservico,defeito,dataentrada,datasaida,placa,preco,data) values (105,'Roda trincada','08-01-2019','10-01-2019','RYU-7777','2000','2019-01-08')
+select * from servicos where codservico in (100, 105);
+
+select * from servicos
+--4) Buscar o nome das especialidades de mão de obra cujo valor da hora esteja entre 50,00 e 150,00.
+insert into mao_de_obra (codmao_de_obra,especialidade,valor) values (4,'Mecânico Especialista',)
+alter table mao_de_obra
+add valor_hora real;
+update mao_de_obra set valor_hora=50 where codmao_de_obra=1;
+update mao_de_obra set valor_hora=140 where codmao_de_obra=2;
+update mao_de_obra set valor_hora=150 where codmao_de_obra=3;
+select * from mao_de_obra where valor_hora between 50 and 150;
+
+--5) Mostrar código do serviço e defeito de todos os atendimentos do veiculo placa luw5554.
+update veiculo set placa='luw5554' where placa=2;
+insert into veiculo (placa,marca,modelo,ano,cor,codcliente) values ('luw-5554','KIA','Sportage',2018,'Prata','4443')
+insert into servicos (codservico,defeito,dataentrada,datasaida,placa,preco,data) values (107,'Volante travando','09-01-2019','10-01-2019','luw-5554','800','2019-01-09')
+select codservico,defeito from servicos where placa='luw-5554';
